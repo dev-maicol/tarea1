@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, DefaultValuePipe, ParseBoolPipe, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, DefaultValuePipe, ParseBoolPipe, HttpCode, Request } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
@@ -11,8 +11,10 @@ export class BooksController {
 
   @ApiOperation({ summary: 'Registro de Libros'})
   @Post()
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.booksService.create(createBookDto);
+  create(@Body() createBookDto: CreateBookDto, @Request() request) {
+    const userId = request.user.id;
+    // return this.authorsService.create({ ...createAuthorDto, userId });
+    return this.booksService.create({ ...createBookDto, userId });
   }
 
   @ApiOperation({ summary: 'Obtener lista de Libros'})

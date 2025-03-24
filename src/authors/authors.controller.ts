@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Request } from '@nestjs/common';
 import { AuthorsService } from './authors.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
@@ -11,8 +11,10 @@ export class AuthorsController {
 
   @ApiOperation({ summary: 'Registro de Autor'})
   @Post()
-  create(@Body() createAuthorDto: CreateAuthorDto) {
-    return this.authorsService.create(createAuthorDto);
+  create(@Body() createAuthorDto: CreateAuthorDto, @Request() request) {
+    const userId = request.user.id;
+    return this.authorsService.create({ ...createAuthorDto, userId });
+    // return this.authorsService.create(createAuthorDto);
   }
 
   @ApiOperation({ summary: 'Obtener lista de Autores'})

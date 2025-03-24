@@ -22,6 +22,11 @@ export class Author {
   @UpdateDateColumn({ type: 'time without time zone', name: 'updated_at', nullable: true, select: false})
   updatedAt: Date;
 
+  @Column({ type: 'integer', name: 'user_id', nullable: true})
+  userId: number;
+
   @OneToMany(() => Book, book => book.author)
   books: Book[]
+
+
 }

@@ -37,6 +37,9 @@ export class BooksService {
   }
 
   async create(createBookDto: CreateBookDto): Promise<Book>{
+    // const author = this.authorsRepository.create(createAuthorDto);
+    // return await this.authorsRepository.save(author);
+
     const author = await this.authorRepository.exists({
       where: {
         id: createBookDto.authorId

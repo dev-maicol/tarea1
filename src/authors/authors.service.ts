@@ -14,8 +14,9 @@ export class AuthorsService {
     private authorsRepository: Repository<Author>
   ){}
 
-  create(createAuthorDto: CreateAuthorDto) {
-    return this.authorsRepository.save(createAuthorDto);
+  async create(createAuthorDto: CreateAuthorDto): Promise<Author> {
+    const author = this.authorsRepository.create(createAuthorDto);
+    return await this.authorsRepository.save(author);
   }
 
   findAll() {

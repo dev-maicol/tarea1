@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsPositive, IsString, Min } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, Min } from "class-validator";
 
 export class CreateBookDto {
 
@@ -49,4 +49,13 @@ export class CreateBookDto {
   @IsNumber({}, { message: "Id de Autor debe ser un valor numérico" })
   @IsPositive({ message: "Id de Autor debe ser un número entero positivo" })
   authorId: number;
+
+  // @ApiProperty({
+  //   description: 'Id de Usuario',
+  //   example: 1,
+  // })
+  @IsOptional()
+  @IsNumber({}, { message: 'Id de Usuario debe ser un valor numérico' })
+  userId?: number;
+
 }

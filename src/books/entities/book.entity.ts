@@ -36,4 +36,7 @@ export class Book {
   @JoinColumn([{ name: 'author_id', referencedColumnName: 'id'}])
   author: Author;
 
+  @Column({ type: 'integer', name: 'user_id', nullable: true})
+  userId: number;
+
 }

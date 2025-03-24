@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsNotEmpty, IsString } from "class-validator";
+import { IsDateString, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateAuthorDto {
 
@@ -25,5 +25,9 @@ export class CreateAuthorDto {
   })
   @IsDateString({}, { message: 'Fecha de nacimiento deber ser de tipo fecha YYYY-MM-DD' })
   birthDate: Date;
+
+  @IsOptional()
+  @IsNumber({}, { message: 'Id de Usuario debe ser un valor numérico' })
+  userId?: number;
 
 }
