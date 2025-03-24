@@ -2,16 +2,20 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, DefaultValueP
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
+import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 
+@ApiBearerAuth('access-token')
 @Controller('v1/books')
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
+  @ApiOperation({ summary: 'Registro de Libros'})
   @Post()
   create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
   }
 
+  @ApiOperation({ summary: 'Obtener lista de Libros'})
   @Get()
   findAll(
     @Query('relations', new DefaultValuePipe(false), ParseBoolPipe) relations: boolean
@@ -19,6 +23,7 @@ export class BooksController {
     return this.booksService.findAll(relations);
   }
 
+  @ApiOperation({ summary: 'Obtener Libro por ID'})
   @Get(':id')
   findOne(
     @Param('id') id: string,
@@ -27,17 +32,20 @@ export class BooksController {
     return this.booksService.findOne(+id, relations);
   }
 
+  @ApiOperation({ summary: 'Actualizar Libro por ID'})
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
     return this.booksService.update(+id, updateBookDto);
   }
 
+  @ApiOperation({ summary: 'Eliminar Libro por ID'})
   @Delete(':id')
   @HttpCode(204)
   remove(@Param('id') id: string) {
     return this.booksService.remove(+id);
   }
 
+  @ApiOperation({ summary: 'Obtener Autor de un Libro por ID'})
   @Get(':id/author')
   findAuthor(@Param('id') id: number) {
     return this.booksService.findAuthor(id);
