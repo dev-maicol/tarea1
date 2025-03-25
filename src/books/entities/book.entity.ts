@@ -1,5 +1,6 @@
 import { Author } from "src/authors/entities/author.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
+import { Category } from "src/categories/entities/category.entity";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 
 @Entity('books')
 @Unique([ 'isbn'])
@@ -32,11 +33,18 @@ export class Book {
   @Column({ type: 'integer', name: 'author_id'})
   authorId: Number;
 
+  @Column({ type: 'integer', name: 'category_id'})
+  categoryId: Number;
+
   @ManyToOne(() => Author, (author) => author.id)
   @JoinColumn([{ name: 'author_id', referencedColumnName: 'id'}])
   author: Author;
 
   @Column({ type: 'integer', name: 'user_id', nullable: true})
   userId: number;
+
+  @ManyToOne(() => Category, (category) => category.id)
+  @JoinColumn([{ name: 'category_id', referencedColumnName: 'id'}])
+  category: Category;
 
 }

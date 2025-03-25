@@ -58,4 +58,12 @@ export class CreateBookDto {
   @IsNumber({}, { message: 'Id de Usuario debe ser un valor numérico' })
   userId?: number;
 
+  @ApiProperty({
+    description: 'Id de Categoria del Libro',
+    example: 1,
+  })
+  @IsNumber({}, { message: "Id de Categoria debe ser un valor numérico" })
+  @IsPositive({ message: "Id de Categoria debe ser un número entero positivo" })
+  categoryId: number;
+
 }
