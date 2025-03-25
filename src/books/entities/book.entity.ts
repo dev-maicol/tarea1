@@ -33,7 +33,7 @@ export class Book {
   @Column({ type: 'integer', name: 'author_id'})
   authorId: Number;
 
-  @Column({ type: 'integer', name: 'category_id'})
+  @Column({ type: 'integer', name: 'category_id', nullable: true})
   categoryId: Number;
 
   @ManyToOne(() => Author, (author) => author.id)

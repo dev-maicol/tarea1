@@ -64,6 +64,6 @@ export class CreateBookDto {
   })
   @IsNumber({}, { message: "Id de Categoria debe ser un valor numérico" })
   @IsPositive({ message: "Id de Categoria debe ser un número entero positivo" })
-  categoryId: number;
+  categoryId?: number;
 
 }
